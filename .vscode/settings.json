@@ -4,6 +4,7 @@
         "crypto.h": "c",
         "mtwister.h": "c",
         "stdio.h": "c",
-        "structs.h": "c"
+        "structs.h": "c",
+        "sha.h": "c"
     }
 }
