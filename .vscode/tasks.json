@@ -1,0 +1,27 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc-11 arquivo de build ativo",
+            "command": "/usr/bin/gcc-11",
+            "args": [
+                "${file}",
+                "mtwister.c",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Tarefa gerada pelo Depurador."
+        }
+    ],
+    "version": "2.0.0"
+}

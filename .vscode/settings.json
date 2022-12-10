@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.java": "java",
+        "crypto.h": "c",
+        "mtwister.h": "c",
+        "stdio.h": "c",
+        "structs.h": "c"
+    }
+}
