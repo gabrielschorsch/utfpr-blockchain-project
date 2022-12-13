@@ -1,90 +1,12 @@
 Bloco 1
-Hash:00000094cec656ccaa7e403eed35a729a090f7f71137d13c7c9a876f2cff058c
-Nonce: 4013425
+Hash:000000dbbf5052d8db8f79ca9891a63d90ebfcb5b683f2f53f03f16155d80d62
+Nonce: 3496998
 Hash anterior: 0000000000000000000000000000000000000000000000000000000000000000
-Transacoes: Origem: 3, Destino: 139, Valor: 190, 
-Origem: 139, Destino: 190, Valor: 185, 
-Origem: 190, Destino: 185, Valor: 90, 
-Origem: 185, Destino: 90, Valor: 27, 
-Origem: 90, Destino: 27, Valor: 159, 
-Origem: 27, Destino: 159, Valor: 81, 
-Origem: 159, Destino: 81, Valor: 42, 
-Origem: 81, Destino: 42, Valor: 0, 
-Origem: 42, Destino: 0, Valor: 0, 
-
+Transacoes: 
 
 Bloco 2
-Hash:000000e8f12843910834c53b74f3b24805a07d6bc3a553a2a6ce1f2dc34b41c4
-Nonce: 11720884
-Hash anterior: 00000094cec656ccaa7e403eed35a729a090f7f71137d13c7c9a876f2cff058c
-Transacoes: Origem: 3, Destino: 139, Valor: 190, 
-Origem: 139, Destino: 190, Valor: 185, 
-Origem: 190, Destino: 185, Valor: 90, 
-Origem: 185, Destino: 90, Valor: 27, 
-Origem: 90, Destino: 27, Valor: 159, 
-Origem: 27, Destino: 159, Valor: 81, 
-Origem: 159, Destino: 81, Valor: 42, 
-Origem: 81, Destino: 42, Valor: 0, 
-Origem: 42, Destino: 0, Valor: 0, 
-
-
-Bloco 3
-Hash:000000bdf37024fe5785ffa4f65ba4b23e40e28bbfa242678790a6a691d6889d
-Nonce: 13133001
-Hash anterior: 000000e8f12843910834c53b74f3b24805a07d6bc3a553a2a6ce1f2dc34b41c4
-Transacoes: Origem: 3, Destino: 139, Valor: 190, 
-Origem: 139, Destino: 190, Valor: 185, 
-Origem: 190, Destino: 185, Valor: 90, 
-Origem: 185, Destino: 90, Valor: 27, 
-Origem: 90, Destino: 27, Valor: 159, 
-Origem: 27, Destino: 159, Valor: 81, 
-Origem: 159, Destino: 81, Valor: 42, 
-Origem: 81, Destino: 42, Valor: 0, 
-Origem: 42, Destino: 0, Valor: 0, 
-
-
-Bloco 4
-Hash:000000e682017d26513fbb3ae3cd5d33661da0782eface10350d579272b1471d
-Nonce: 19503816
-Hash anterior: 000000bdf37024fe5785ffa4f65ba4b23e40e28bbfa242678790a6a691d6889d
-Transacoes: Origem: 3, Destino: 139, Valor: 190, 
-Origem: 139, Destino: 190, Valor: 185, 
-Origem: 190, Destino: 185, Valor: 90, 
-Origem: 185, Destino: 90, Valor: 27, 
-Origem: 90, Destino: 27, Valor: 159, 
-Origem: 27, Destino: 159, Valor: 81, 
-Origem: 159, Destino: 81, Valor: 42, 
-Origem: 81, Destino: 42, Valor: 0, 
-Origem: 42, Destino: 0, Valor: 0, 
-
-
-Bloco 5
-Hash:0000007ed620f45a9703bd948f2452dfcb9942bd7094bbbf22e4700cc1700feb
-Nonce: 38441896
-Hash anterior: 000000e682017d26513fbb3ae3cd5d33661da0782eface10350d579272b1471d
-Transacoes: Origem: 3, Destino: 139, Valor: 190, 
-Origem: 139, Destino: 190, Valor: 185, 
-Origem: 190, Destino: 185, Valor: 90, 
-Origem: 185, Destino: 90, Valor: 27, 
-Origem: 90, Destino: 27, Valor: 159, 
-Origem: 27, Destino: 159, Valor: 81, 
-Origem: 159, Destino: 81, Valor: 42, 
-Origem: 81, Destino: 42, Valor: 0, 
-Origem: 42, Destino: 0, Valor: 0, 
-
-
-Bloco 6
-Hash:000000baa145bf81b3275db644d368db275c44e08189560eb20f75a5eb2a0a0b
-Nonce: 19756390
-Hash anterior: 0000007ed620f45a9703bd948f2452dfcb9942bd7094bbbf22e4700cc1700feb
-Transacoes: Origem: 3, Destino: 139, Valor: 190, 
-Origem: 139, Destino: 190, Valor: 185, 
-Origem: 190, Destino: 185, Valor: 90, 
-Origem: 185, Destino: 90, Valor: 27, 
-Origem: 90, Destino: 27, Valor: 159, 
-Origem: 27, Destino: 159, Valor: 81, 
-Origem: 159, Destino: 81, Valor: 42, 
-Origem: 81, Destino: 42, Valor: 0, 
-Origem: 42, Destino: 0, Valor: 0, 
-
+Hash:000000881ab7e4f1aedf49bee7400966e70efbc9b9f9384b1958347766f67a5d
+Nonce: 19378784
+Hash anterior: 000000dbbf5052d8db8f79ca9891a63d90ebfcb5b683f2f53f03f16155d80d62
+Transacoes: 
 

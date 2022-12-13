@@ -6,29 +6,13 @@
 #include "structs.h"
 #include "openssl/sha.h"
 
-BlocoNaoMinerado createBlock(unsigned int numeroBloco, unsigned char qtdTransacoes, unsigned char *hashAnterior, MTRand randNumber, unsigned char *balances)
+BlocoNaoMinerado createBlock(unsigned int numeroBloco, unsigned char transactions, unsigned char *hashAnterior)
 {
     BlocoNaoMinerado bloco;
     bloco.numero = numeroBloco;
     bloco.nonce = 0;
     memset(bloco.data, 0, 184);
-    for (int i = 0; i < qtdTransacoes; i++)
-    {
-        unsigned char endOrigem = (unsigned char)genRandLong(&randNumber) % 256; // gera aleatorio de 0 a 255
-        unsigned char endDst = (unsigned char)genRandLong(&randNumber) % 256;    // gera aleatorio de 0 a 256
-        unsigned char valor = (unsigned char)genRandLong(&randNumber) % 50;      // gera aleatorio de 0 a 50
-        printf("Valor atual em origem: %d, ", *(balances + endOrigem));
-        printf("Valor atual em destino: %d\n", *(balances + endDst));
-        //add balance to destin and remove from origin
-        *(balances + endOrigem) -= valor;
-        *(balances + endDst) += valor;
-        printf("Valor em origem: %d, ", *(balances + endOrigem));
-        printf("Valor em destino: %d\n", *(balances + endDst));
-        // add transacao ao bloco
-        bloco.data[i] = endOrigem;
-        bloco.data[i + 1] = endDst;
-        bloco.data[i + 2] = valor;
-    }
+   
     // copia o hash anterior para o bloco
     for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
     {
@@ -205,7 +189,7 @@ void saveBalances(unsigned int *balances){
     fclose(fp2);
 }
 
-void mine(unsigned char *hashAnterior, int *numeroBloco, MTRand randNumber, BlocoMinerado *blocoEspera, int* cantSave, unsigned int *balances)
+void mine(BlocoNaoMinerado blocoAMinerar, BlocoMinerado *blocoEspera, int* cantSave, unsigned int *balances, unsigned char *hashAnterior)
 {
     printf("Hash anterior: ");
     for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
@@ -213,10 +197,9 @@ void mine(unsigned char *hashAnterior, int *numeroBloco, MTRand randNumber, Bloc
         printf("%02x", hashAnterior[i]);
     }
     printf("\n");
-    unsigned char qtdTransacoes = (unsigned char)(1 + (genRandLong(&randNumber) % 61));
-    BlocoNaoMinerado blocoAMinerar = createBlock(*numeroBloco, qtdTransacoes, hashAnterior, randNumber,balances);
+    
     clock_t begin = clock();
-    BlocoMinerado blocoMinerado = mineBlock(blocoAMinerar, hashAnterior);
+    BlocoMinerado blocoMinerado = mineBlock(blocoAMinerar, blocoAMinerar.hashAnterior);
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Tempo gasto: %.5f s\n\n\n\n", time_spent);
@@ -240,7 +223,6 @@ void mine(unsigned char *hashAnterior, int *numeroBloco, MTRand randNumber, Bloc
     }
 
     printf("\n\n\n\n\n");
-    (*numeroBloco)++;
 }
 
 void getBlockById(){
@@ -261,6 +243,30 @@ void getBlockById(){
     printf("Bloco nao encontrado\n");
 }
 
+int *getDescendingBalances()
+{
+    // fetch balances from file
+    FILE *fp;
+    fp = fopen("balances.bin", "rb");
+    int *balances = malloc(256 * sizeof(unsigned int));
+    fread(balances, sizeof(unsigned int), 256, fp);
+    fclose(fp);
+    // sort balances descending
+    for (int i = 0; i < 256; i++)
+    {
+        for (int j = i + 1; j < 256; j++)
+        {
+            if (balances[i] < balances[j])
+            {
+                unsigned int temp = balances[i];
+                balances[i] = balances[j];
+                balances[j] = temp;
+            }
+        }
+    }
+    return balances;
+}
+
 void getBalanceByAccountAddress()
 {
     printf("Digite o endereco da conta: ");
@@ -268,14 +274,7 @@ void getBalanceByAccountAddress()
     scanf("%d", &endereco);
     FILE *fp;
     fp = fopen("balances.bin", "rb");
-    //print all balances
-    for (int i = 0; i < 256; i++)
-    {
-        unsigned int balance;
-        fread(&balance, sizeof(unsigned int), 1, fp);
-        printf("Endereco %d possui %d bitcoins\n", i, balance);
-    }
-        unsigned int balance;
+    unsigned int balance;
     fseek(fp, endereco * sizeof(unsigned int), SEEK_SET);
     fread(&balance, sizeof(unsigned int), 1, fp);
     if (balance)
@@ -288,54 +287,27 @@ void getBalanceByAccountAddress()
     }
 }
 
+
 void getHighestBalance(){
-    FILE *fp;
-    fp = fopen("balances.bin", "rb");
-    unsigned int balance;
-    unsigned char endereco = 0;
-    unsigned int highestBalance = 0;
-    unsigned char highestBalanceAddress = 0;
-    while (fread(&balance, sizeof(unsigned int), 1, fp))
-    {
-        if (balance > highestBalance)
-        {
-            highestBalance = balance;
-            highestBalanceAddress = endereco;
-        }
-        endereco++;
-    }
-    printf("O endereco %d possui o maior saldo, com %d bitcoins\n", highestBalanceAddress, highestBalance);
+    //fetch balances from file
+    unsigned int *balances = getDescendingBalances();
+    printf("O maior saldo e: %d bitcoins\n", balances[0]);
 }
 
 void showHighestBalances(){
     //fetch balances from file
-    FILE *fp;
-    fp = fopen("balances.bin", "rb");
-    unsigned int balances[256];
-    fread(balances, sizeof(unsigned int), 256, fp);
-    fclose(fp);
-    //order balances array descending
-    unsigned int aux;
-    for (int i = 0; i < 256; i++)
+    int *balances = getDescendingBalances();
+    printf("Os 30 maiores saldos sao:\n");
+    for (int i = 0; i < 30; i++)
     {
-        for (int j = i + 1; j < 256; j++)
-        {
-            if (balances[i] < balances[j])
-            {
-                aux = balances[i];
-                balances[i] = balances[j];
-                balances[j] = aux;
-            }
-        }
+        printf("%d bitcoins\n", balances[i]);
     }
-    //print top 10
     
 }
 
 int main(int argc, char *argv[])
 {
     unsigned int balances[256];
-    memset(balances, 0, 256 * sizeof(unsigned int));
     MTRand randNumber = seedRand(1234567); // objeto gerador com semente 1234567
 
     unsigned char hashAnterior[SHA256_DIGEST_LENGTH];
@@ -349,6 +321,8 @@ int main(int argc, char *argv[])
     if(fp){
         fread(balances, sizeof(unsigned int), 256, fp);
         fclose(fp);
+    } else {
+        memset(balances, 0, 256 * sizeof(unsigned int));
     }
 
     // get last block number
@@ -382,8 +356,34 @@ int main(int argc, char *argv[])
         switch (opcao)
         {
         case 1:
-            while(1){
-                mine(hashAnterior, &numeroBloco, randNumber, &blocoEspera, &cantSave, balances);
+            // ask how many blocks to mine
+            int blocksToMine;
+            printf("Quantos blocos deseja minerar? ");
+            scanf("%d", &blocksToMine);
+            if(blocksToMine % 2 != 0){
+                printf("O numero de blocos deve ser par, serao minerados %d blocos.\n", ++blocksToMine);
+            }
+            for (int i = 0; i < blocksToMine; i++)
+            {
+                unsigned char qtdTransacoes = (unsigned char)(1 + (genRandLong(&randNumber) % 61));
+                unsigned char transacoes[184];
+                // set all values of transacoes to zero
+                memset(transacoes, 0, 184);
+                for (int i = 0; i < qtdTransacoes; i++)
+                {
+                    unsigned char endOrigem = (unsigned char)genRandLong(&randNumber) % 256; // gera aleatorio de 0 a 255
+                    unsigned char endDst = (unsigned char)genRandLong(&randNumber) % 256;    // gera aleatorio de 0 a 255
+                    unsigned char valor = (unsigned char)genRandLong(&randNumber) % 50;      // gera aleatorio de 0 a 50
+                    *(balances + endOrigem) -= valor;
+                    *(balances + endDst) += valor;
+                    transacoes[i] = endOrigem;
+                    transacoes[i + 1] = endDst;
+                    transacoes[i + 2] = valor;
+                }
+                BlocoNaoMinerado blocoNaoMinerado = createBlock(numeroBloco, transacoes, hashAnterior);
+                mine(blocoNaoMinerado,&blocoEspera, &cantSave, balances, hashAnterior);
+                numeroBloco++;
+
             }
             break;
         case 2:
@@ -396,6 +396,7 @@ int main(int argc, char *argv[])
             getHighestBalance();
             break;
         case 5:
+            showHighestBalances();
             break;
         }
         continueAndClear();
