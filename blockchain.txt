@@ -1,72 +1,50 @@
 Bloco 1
-Hash:000000dbbf5052d8db8f79ca9891a63d90ebfcb5b683f2f53f03f16155d80d62
-Nonce: 3496998
+Hash:000000cc2831c78fe80814aa91e1e25f20bc5666789c116850a40aa98bdc5a52
+Nonce: 25884009
 Hash anterior: 0000000000000000000000000000000000000000000000000000000000000000
-Transacoes: 
+Transacoes: Origem: 3, Destino: 136, Valor: 15, 
+Origem: 139, Destino: 126, Valor: 49, 
+Origem: 190, Destino: 153, Valor: 39, 
+Origem: 185, Destino: 64, Valor: 47, 
+Origem: 90, Destino: 228, Valor: 10, 
+Origem: 27, Destino: 152, Valor: 45, 
+Origem: 159, Destino: 81, Valor: 21, 
+
 
 Bloco 2
-Hash:000000881ab7e4f1aedf49bee7400966e70efbc9b9f9384b1958347766f67a5d
-Nonce: 19378784
-Hash anterior: 000000dbbf5052d8db8f79ca9891a63d90ebfcb5b683f2f53f03f16155d80d62
-Transacoes: 
+Hash:00000034d4c9f5a5b3b0478a85f03728f49fed37d287b178ddcace939f3c6556
+Nonce: 28912615
+Hash anterior: 000000cc2831c78fe80814aa91e1e25f20bc5666789c116850a40aa98bdc5a52
+Transacoes: Origem: 70, Destino: 219, Valor: 12, 
+Origem: 236, Destino: 29, Valor: 31, 
+Origem: 175, Destino: 91, Valor: 37, 
+Origem: 246, Destino: 210, Valor: 10, 
+Origem: 140, Destino: 88, Valor: 7, 
+Origem: 65, Destino: 123, Valor: 46, 
+Origem: 38, Destino: 59, Valor: 50, 
+Origem: 91, Destino: 227, Valor: 4, 
+Origem: 107, Destino: 125, Valor: 7, 
+Origem: 98, Destino: 24, Valor: 14, 
+Origem: 50, Destino: 15, Valor: 20, 
+Origem: 30, Destino: 56, Valor: 34, 
+Origem: 70, Destino: 153, Valor: 3, 
+Origem: 39, Destino: 94, Valor: 19, 
+Origem: 25, Destino: 122, Valor: 3, 
+Origem: 64, Destino: 80, Valor: 21, 
+Origem: 174, Destino: 118, Valor: 50, 
+Origem: 236, Destino: 50, Valor: 38, 
+Origem: 183, Destino: 32, Valor: 43, 
+Origem: 219, Destino: 158, Valor: 28, 
+Origem: 54, Destino: 58, Valor: 31, 
+Origem: 218, Destino: 232, Valor: 36, 
+Origem: 19, Destino: 0, Valor: 22, 
+Origem: 6, Destino: 171, Valor: 21, 
+Origem: 173, Destino: 187, Valor: 8, 
+Origem: 32, Destino: 109, Valor: 30, 
+Origem: 238, Destino: 63, Valor: 23, 
+Origem: 24, Destino: 35, Valor: 37, 
+Origem: 240, Destino: 255, Valor: 16, 
+Origem: 147, Destino: 241, Valor: 46, 
+Origem: 252, Destino: 230, Valor: 33, 
 
-Bloco 3
-Hash:00000086e2ab957c28a0d57ee5d025b3670d57350c9ad1a405a576f22208a2a7
-Nonce: 24877771
-Hash anterior: 000000881ab7e4f1aedf49bee7400966e70efbc9b9f9384b1958347766f67a5d
-Transacoes: 
-
-Bloco 4
-Hash:00000014854c29780e2480a8a76f2f91a653c35bd2a963217ac361798f360ca9
-Nonce: 1782930
-Hash anterior: 00000086e2ab957c28a0d57ee5d025b3670d57350c9ad1a405a576f22208a2a7
-Transacoes: 
-
-Bloco 5
-Hash:00000099d67eef0891b97c5d8f3c95a41c97725a94ed41d2d926291be9b36099
-Nonce: 2875036
-Hash anterior: 00000014854c29780e2480a8a76f2f91a653c35bd2a963217ac361798f360ca9
-Transacoes: 
-
-Bloco 6
-Hash:000000360f3e30c49330aa4d65abb2636f02022ff22dd1f250c739c943c14d11
-Nonce: 8778797
-Hash anterior: 00000099d67eef0891b97c5d8f3c95a41c97725a94ed41d2d926291be9b36099
-Transacoes: 
-
-Bloco 7
-Hash:000000685ea7f5373802405ec971935915246121963f96348e4f17d72c8cd3fb
-Nonce: 10472905
-Hash anterior: 000000360f3e30c49330aa4d65abb2636f02022ff22dd1f250c739c943c14d11
-Transacoes: 
-
-Bloco 8
-Hash:0000001cdf559713dfb5408a788afcbb0366d12a42ee9b6b016f56c6d3cfcb20
-Nonce: 7286183
-Hash anterior: 000000685ea7f5373802405ec971935915246121963f96348e4f17d72c8cd3fb
-Transacoes: 
-
-Bloco 9
-Hash:000000e23447c91956d500ab51ae66ce8a56b8fe8eef3122b8d0fdc0774a7131
-Nonce: 456277
-Hash anterior: 0000001cdf559713dfb5408a788afcbb0366d12a42ee9b6b016f56c6d3cfcb20
-Transacoes: 
-
-Bloco 10
-Hash:000000be6fe297ecd5055ce7e74d0ed6d08214fb5cc0015f9a1c599a169abc4c
-Nonce: 23436511
-Hash anterior: 000000e23447c91956d500ab51ae66ce8a56b8fe8eef3122b8d0fdc0774a7131
-Transacoes: 
-
-Bloco 11
-Hash:0000002c70e718bb5ed466eac94d7c339be7e162bc7c42609298697e01dfa835
-Nonce: 21426381
-Hash anterior: 000000be6fe297ecd5055ce7e74d0ed6d08214fb5cc0015f9a1c599a169abc4c
-Transacoes: 
-
-Bloco 12
-Hash:000000238c1d2c92eb79ab0d303c1795d40ebe09a27b57273c0b9bcca7e35001
-Nonce: 122502147
-Hash anterior: 0000002c70e718bb5ed466eac94d7c339be7e162bc7c42609298697e01dfa835
-Transacoes: 
 

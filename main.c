@@ -2,17 +2,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "mtwister.h"
+#include "mtwister.c"
 #include "structs.h"
 #include "openssl/sha.h"
 
-BlocoNaoMinerado createBlock(unsigned int numeroBloco, unsigned char transactions, unsigned char *hashAnterior)
+BlocoNaoMinerado createBlock(unsigned int numeroBloco, unsigned char *hashAnterior)
 {
     BlocoNaoMinerado bloco;
     bloco.numero = numeroBloco;
     bloco.nonce = 0;
-    memset(bloco.data, 0, 184);
-   
     // copia o hash anterior para o bloco
     for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
     {
@@ -52,16 +50,12 @@ void printUnminedBlock(BlocoNaoMinerado bloco)
         printf("%02x", bloco.hashAnterior[i]);
     }
     printf("\n");
-    printf("Transacoes: ");
-    for (int i = 0; i < 61; i++)
+    printf("Transacoes: \n");
+    for (int i = 0; i < 181; i += 3)
     {
-        if (bloco.data[i] == 0)
-        {
-            break;
-        }
-        printf("Origem: %d, ", bloco.data[i]);
-        printf("Destino: %d, ", bloco.data[i + 1]);
-        printf("Valor: %d, ", bloco.data[i + 2]);
+        printf("%d ", bloco.data[i]);
+        printf("%d ", bloco.data[i + 1]);
+        printf("%d ", bloco.data[i + 2]);
         printf("\n");
     }
     printf("\n");
@@ -103,7 +97,8 @@ void continueAndClear()
     system("clear");
 }
 
-void saveBlocksToFile(BlocoMinerado *blocoEspera, BlocoMinerado blocoMinerado){
+void saveBlocksToFile(BlocoMinerado *blocoEspera, BlocoMinerado blocoMinerado)
+{
     FILE *fp;
     fp = fopen("blockchain.bin", "ab");
     fwrite(blocoEspera, sizeof(BlocoMinerado), 1, fp);
@@ -127,7 +122,7 @@ void saveBlocksToFile(BlocoMinerado *blocoEspera, BlocoMinerado blocoMinerado){
     }
     fprintf(fp2, "\n");
     fprintf(fp2, "Transacoes: ");
-    for (int i = 0; i < 61; i++)
+    for (int i = 0; i < 184; i += 3)
     {
         if (blocoEspera->bloco.data[i] == 0)
         {
@@ -156,7 +151,7 @@ void saveBlocksToFile(BlocoMinerado *blocoEspera, BlocoMinerado blocoMinerado){
     }
     fprintf(fp2, "\n");
     fprintf(fp2, "Transacoes: ");
-    for (int i = 0; i < 61; i++)
+    for (int i = 0; i < 184; i += 3)
     {
         if (blocoMinerado.bloco.data[i] == 0)
         {
@@ -172,14 +167,15 @@ void saveBlocksToFile(BlocoMinerado *blocoEspera, BlocoMinerado blocoMinerado){
     fclose(fp2);
 }
 
-void saveBalances(unsigned int *balances){
+void saveBalances(unsigned int *balances)
+{
     FILE *fp;
     fp = fopen("balances.bin", "wb");
-   
+
     fwrite(balances, sizeof(unsigned int), 256, fp);
     fclose(fp);
 
-    //save on txt file for debug
+    // save on txt file for debug
     FILE *fp2;
     fp2 = fopen("balances.txt", "w");
     for (int i = 0; i < 256; i++)
@@ -189,7 +185,7 @@ void saveBalances(unsigned int *balances){
     fclose(fp2);
 }
 
-void mine(BlocoNaoMinerado blocoAMinerar, BlocoMinerado *blocoEspera, int* cantSave, unsigned int *balances, unsigned char *hashAnterior)
+void mine(BlocoNaoMinerado blocoAMinerar, BlocoMinerado *blocoEspera, int *cantSave, unsigned int *balances, unsigned char *hashAnterior)
 {
     printf("Hash anterior: ");
     for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
@@ -197,7 +193,7 @@ void mine(BlocoNaoMinerado blocoAMinerar, BlocoMinerado *blocoEspera, int* cantS
         printf("%02x", hashAnterior[i]);
     }
     printf("\n");
-    
+
     clock_t begin = clock();
     BlocoMinerado blocoMinerado = mineBlock(blocoAMinerar, blocoAMinerar.hashAnterior);
     clock_t end = clock();
@@ -224,7 +220,8 @@ void mine(BlocoNaoMinerado blocoAMinerar, BlocoMinerado *blocoEspera, int* cantS
     printf("\n\n");
 }
 
-void getBlockById(){
+void getBlockById()
+{
     int numeroBloco;
     printf("\nDigite o numero do bloco: ");
     scanf("%d", &numeroBloco);
@@ -235,7 +232,7 @@ void getBlockById(){
     {
         if (bloco.bloco.numero == numeroBloco)
         {
-            printMinedBlock(bloco);
+            printUnminedBlock(bloco.bloco);
             return;
         }
     }
@@ -270,7 +267,7 @@ void getBalanceByAccountAddress()
 {
     printf("Digite o endereco da conta: ");
     unsigned char endereco;
-    scanf("%d", &endereco);
+    scanf("%c", &endereco);
     FILE *fp;
     fp = fopen("balances.bin", "rb");
     unsigned int balance;
@@ -280,28 +277,30 @@ void getBalanceByAccountAddress()
     {
         printf("O endereco %d possui %d bitcoins\n", endereco, balance);
         return;
-    } else {
+    }
+    else
+    {
         printf("O endereco %d nao possui bitcoins\n", endereco);
         return;
     }
 }
 
-
-void getHighestBalance(){
-    //fetch balances from file
+void getHighestBalance()
+{
+    // fetch balances from file
     unsigned int *balances = getDescendingBalances();
     printf("O maior saldo e: %d bitcoins\n", balances[0]);
 }
 
-void showHighestBalances(){
-    //fetch balances from file
+void showHighestBalances()
+{
+    // fetch balances from file
     int *balances = getDescendingBalances();
     printf("Os 30 maiores saldos sao:\n");
     for (int i = 0; i < 30; i++)
     {
         printf("%d bitcoins\n", balances[i]);
     }
-    
 }
 
 int main(int argc, char *argv[])
@@ -313,14 +312,16 @@ int main(int argc, char *argv[])
     FILE *file;
     file = fopen("blockchain.bin", "rb");
 
-
-    //save all balances from file to array
+    // save all balances from file to array
     FILE *fp;
     fp = fopen("balances.bin", "rb");
-    if(fp){
+    if (fp)
+    {
         fread(balances, sizeof(unsigned int), 256, fp);
         fclose(fp);
-    } else {
+    }
+    else
+    {
         memset(balances, 0, 256 * sizeof(unsigned int));
     }
 
@@ -359,30 +360,31 @@ int main(int argc, char *argv[])
             int blocksToMine;
             printf("Quantos blocos deseja minerar? ");
             scanf("%d", &blocksToMine);
-            if(blocksToMine % 2 != 0){
+            if (blocksToMine % 2 != 0)
+            {
                 printf("O numero de blocos deve ser par, serao minerados %d blocos.\n", ++blocksToMine);
             }
             for (int i = 0; i < blocksToMine; i++)
             {
                 unsigned char qtdTransacoes = (unsigned char)(1 + (genRandLong(&randNumber) % 61));
-                unsigned char transacoes[184];
                 // set all values of transacoes to zero
-                memset(transacoes, 0, 184);
-                for (int i = 0; i < qtdTransacoes; i++)
+
+                BlocoNaoMinerado blocoNaoMinerado = createBlock(numeroBloco, hashAnterior);
+                memset(blocoNaoMinerado.data, 0, sizeof(blocoNaoMinerado.data));
+                printf("Bloco /////////////////////////////////////////////////////////////////////////////////////////////%d\n", qtdTransacoes);
+                for (int i = 0; i < (qtdTransacoes * 3); i += 3)
                 {
-                    unsigned char endOrigem = (unsigned char)genRandLong(&randNumber) % 256; // gera aleatorio de 0 a 255
-                    unsigned char endDst = (unsigned char)genRandLong(&randNumber) % 256;    // gera aleatorio de 0 a 255
-                    unsigned char valor = (unsigned char)genRandLong(&randNumber) % 50;      // gera aleatorio de 0 a 50
+                    unsigned char endOrigem = (unsigned char)genRandLong(&randNumber) % 256;  // gera aleatorio de 0 a 255
+                    unsigned char endDst = (unsigned char)genRandLong(&randNumber) % 256;     // gera aleatorio de 0 a 255
+                    unsigned char valor = (unsigned char)(1 + genRandLong(&randNumber) % 50); // gera aleatorio de 0 a 50
                     *(balances + endOrigem) -= valor;
                     *(balances + endDst) += valor;
-                    transacoes[i] = endOrigem;
-                    transacoes[i + 1] = endDst;
-                    transacoes[i + 2] = valor;
+                    blocoNaoMinerado.data[i] = endOrigem;
+                    blocoNaoMinerado.data[i + 1] = endDst;
+                    blocoNaoMinerado.data[i + 2] = valor;
                 }
-                BlocoNaoMinerado blocoNaoMinerado = createBlock(numeroBloco, transacoes, hashAnterior);
-                mine(blocoNaoMinerado,&blocoEspera, &cantSave, balances, hashAnterior);
+                mine(blocoNaoMinerado, &blocoEspera, &cantSave, balances, hashAnterior);
                 numeroBloco++;
-
             }
             break;
         case 2:
