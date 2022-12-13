@@ -203,7 +203,7 @@ void mine(BlocoNaoMinerado blocoAMinerar, BlocoMinerado *blocoEspera, int* cantS
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Tempo gasto: %.5f s\n\n\n\n", time_spent);
-    printMinedBlock(blocoMinerado);
+    // printMinedBlock(blocoMinerado);
     // copia o hash do bloco minerado para o hash anterior
     for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
     {
@@ -221,8 +221,7 @@ void mine(BlocoNaoMinerado blocoAMinerar, BlocoMinerado *blocoEspera, int* cantS
         saveBalances(balances);
         *cantSave = 1;
     }
-
-    printf("\n\n\n\n\n");
+    printf("\n\n");
 }
 
 void getBlockById(){
